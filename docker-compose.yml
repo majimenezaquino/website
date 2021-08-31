@@ -10,7 +10,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
     ports:
-      - 5000:3000
+      - 80:3000
   db:
     image: mongo
     container_name: db_mongo
