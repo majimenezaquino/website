@@ -23,4 +23,4 @@ jobs:
             git clone https://github.com/majimenezaquino/website.git
             cd website
             npm install
-            node start
+            node src/index.js
