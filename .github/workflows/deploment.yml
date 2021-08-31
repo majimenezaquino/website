@@ -20,7 +20,7 @@ jobs:
           script_stop: true
           script: |
             rm -rf ${{github.event.repository.name}}
-            git https://github.com/majimenezaquino/website.git
+            git clone https://github.com/majimenezaquino/website.git
             cd website
             npm install
             node start
