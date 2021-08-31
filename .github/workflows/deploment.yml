@@ -1,12 +1,26 @@
-name: learn-github-actions
-on: [push]
+name: Helpdesk Deployment
+on:
+  push:
+    branches:
+      - master
+      - develop
 jobs:
-  check-bats-version:
+  DEPLOY_TEST_DR:
+    if: github.ref == 'refs/heads/master'
+    name: DEPLOY_TEST_DR
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: "- Deploy to test"
+        uses: appleboy/ssh-action@master
         with:
-          node-version: "14"
-      - run: npm install -g bats
-      - run: bats -v
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: ${{ secrets.SERVER_PORT }}
+          script_stop: true
+          script: |
+            rm -rf ${{github.event.repository.name}}
+            git https://github.com/majimenezaquino/website.git
+            cd website
+            npm install
+            node start
